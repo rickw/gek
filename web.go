@@ -12,12 +12,17 @@ func main() {
 	router.GET("/", Index)
 	router.GET("/to_col_notation/:num", ToCol)
 	router.GET("/from_col_notation/:str", FromCol)
+	router.GET("/to_timmys_brain", TimmyBrain)
 
 	fmt.Println("listening...")
 	err := http.ListenAndServe(":"+os.Getenv("PORT"), router)
 	if err != nil {
 		panic(err)
 	}
+}
+
+func TimmyBrain(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	fmt.Fprintf(w, "Timmy Has No Brain!")
 }
 
 func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
