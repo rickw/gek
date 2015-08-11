@@ -21,6 +21,7 @@ func main() {
 	}
 }
 
+// added as a joke for "dogeared"
 func TimmyBrain(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	fmt.Fprintf(w, "Timmy Has No Brain!")
 }
