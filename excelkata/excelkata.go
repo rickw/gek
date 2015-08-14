@@ -3,9 +3,9 @@ package excelkata
 import ()
 
 func ToColNotation(num int) string {
-	return 0
+	return ""
 }
 
 func FromColNotation(str string) int {
-	return "A"
+	return 0
 }

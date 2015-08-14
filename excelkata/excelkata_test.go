@@ -2,18 +2,37 @@ package excelkata
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"testing"
 )
 
 const (
-	TO_URL   = "http://code-challenge.afitnerd.com/v1/excel_kata/to_col_notation/%i"
+	TO_URL   = "http://code-challenge.afitnerd.com/v1/excel_kata/to_col_notation/%d"
 	FROM_URL = "http://code-challenge.afitnerd.com/v1/excel_kata/from_col_notation/%s"
 )
 
+func TestToCol(t *testing.T) {
+	result := ToColNotation(1)
+	expected := toCol(1)
+
+	if result != expected {
+		t.Errorf("ToCol(%d), returned(%s), expected(%s)", 1, result, expected)
+	}
+}
+
+func TestFromCol(t *testing.T) {
+	result := FromColNotation("A")
+	expected := fromCol("A")
+
+	if result != expected {
+		t.Errorf("FromCol(%s), returned(%d), expected(%d)", "A", result, expected)
+	}
+}
+
 func toCol(number int) string {
-	req_url := sprintf(TO_URL, number)
+	req_url := fmt.Sprintf(TO_URL, number)
 	resp, err := http.Get(req_url)
 	if err != nil {
 		fmt.Println(err)
@@ -33,6 +52,21 @@ func toCol(number int) string {
 }
 
 func fromCol(str string) int {
-	req_url := sprintf(FROM_URL, str)
+	req_url := fmt.Sprintf(FROM_URL, str)
 	resp, err := http.Get(req_url)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println(err)
+	}
+	var dat map[string]interface{}
+
+	if err := json.Unmarshal(body, &dat); err != nil {
+		fmt.Println(err)
+	}
+	return int(dat["result"].(float64))
 }
