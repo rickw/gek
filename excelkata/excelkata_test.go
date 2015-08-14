@@ -1,6 +1,8 @@
 package excelkata
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"net/http"
 	"testing"
 )
@@ -13,6 +15,21 @@ const (
 func toCol(number int) string {
 	req_url := sprintf(TO_URL, number)
 	resp, err := http.Get(req_url)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println(err)
+	}
+	var dat map[string]interface{}
+
+	if err := json.Unmarshal(body, &dat); err != nil {
+		fmt.Println(err)
+	}
+	return dat["result"].(string)
 }
 
 func fromCol(str string) int {
