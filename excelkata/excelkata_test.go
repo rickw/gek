@@ -14,11 +14,13 @@ const (
 )
 
 func TestToCol(t *testing.T) {
-	result := ToColNotation(1)
-	expected := toCol(1)
+	for toTest := 1; toTest < 100; toTest++ {
+		result := ToColNotation(toTest)
+		expected := toCol(toTest)
 
-	if result != expected {
-		t.Errorf("ToCol(%d), returned(%s), expected(%s)", 1, result, expected)
+		if result != expected {
+			t.Errorf("ToCol(%d), returned(%s), expected(%s)", toTest, result, expected)
+		}
 	}
 }
 
