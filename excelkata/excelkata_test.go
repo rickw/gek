@@ -25,11 +25,14 @@ func TestToCol(t *testing.T) {
 }
 
 func TestFromCol(t *testing.T) {
-	result := FromColNotation("A")
-	expected := fromCol("A")
+	for toTest := 1; toTest < 100; toTest++ {
+		toTestString := toCol(toTest)
+		result := FromColNotation(toTestString)
+		expected := fromCol(toTestString)
 
-	if result != expected {
-		t.Errorf("FromCol(%s), returned(%d), expected(%d)", "A", result, expected)
+		if result != expected {
+			t.Errorf("FromCol(%s), returned(%d), expected(%d)", toTestString, result, expected)
+		}
 	}
 }
 

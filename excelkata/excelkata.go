@@ -1,6 +1,9 @@
 package excelkata
 
-import ()
+import (
+	"math"
+	"strings"
+)
 
 func ToColNotation(num int) string {
 	convert := num
@@ -34,7 +37,26 @@ func ToColNotation(num int) string {
 }
 
 func FromColNotation(str string) int {
-	return 0
+	convert := strings.ToUpper(str)
+	convertSlice := stringToIntSlice(convert)
+	convertSlice = reverseInts(convertSlice)
+	converted := 0
+
+	for i := 0; i < len(convertSlice); i++ {
+		converted += int(float64(convertSlice[i]) * math.Pow(26, float64(i)))
+	}
+
+	return converted
+}
+
+func stringToIntSlice(str string) []int {
+	intSlice := make([]int, 0)
+
+	for i := 0; i < len(str); i++ {
+		intSlice = append(intSlice, int(str[i]-'A'+1))
+	}
+
+	return intSlice
 }
 
 func reverseInts(input []int) []int {
