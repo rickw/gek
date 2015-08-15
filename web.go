@@ -1,10 +1,13 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/julienschmidt/httprouter"
+	"github.com/rickw/gek/excelkata"
 	"net/http"
 	"os"
+	"strconv"
 )
 
 func main() {
@@ -32,10 +35,11 @@ func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 func ToCol(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	// ps.ByName("num")
-	fmt.Fprintf(w, "sorry, %s!\n", ps.ByName("num"))
+	num, _ := strconv.Atoi(ps.ByName("num"))
+	json.NewEncoder(w).Encode(map[string]string{"result": excelkata.ToColNotation(num)})
 }
 
 func FromCol(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	// ps.ByName("str")
-	fmt.Fprintf(w, "sorry, %s!\n", ps.ByName("str"))
+	json.NewEncoder(w).Encode(map[string]int{"result": excelkata.FromColNotation(ps.ByName("str"))})
 }
