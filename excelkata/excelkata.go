@@ -7,8 +7,20 @@ func ToColNotation(num int) string {
 	converted := make([]int, 0)
 
 	for convert != 0 {
-		converted = append(converted, convert%26)
+		var convert_mod int
+
+		if convert%26 == 0 {
+			convert_mod = 26
+		} else {
+			convert_mod = convert % 26
+		}
+
+		converted = append(converted, convert_mod)
 		convert = convert / 26
+
+		if convert_mod == 26 {
+			convert--
+		}
 	}
 
 	converted = reverseInts(converted)
