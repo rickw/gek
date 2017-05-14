@@ -9,8 +9,8 @@ import (
 )
 
 const (
-	TO_URL   = "http://code-challenge.afitnerd.com/v1/excel_kata/to_col_notation/%d"
-	FROM_URL = "http://code-challenge.afitnerd.com/v1/excel_kata/from_col_notation/%s"
+	toURL   = "http://127.0.0.1:9000/to_col_notation/%d"
+	fromURL = "http://127.0.0.1:9000/from_col_notation/%s"
 )
 
 func TestToCol(t *testing.T) {
@@ -37,8 +37,8 @@ func TestFromCol(t *testing.T) {
 }
 
 func toCol(number int) string {
-	req_url := fmt.Sprintf(TO_URL, number)
-	resp, err := http.Get(req_url)
+	reqURL := fmt.Sprintf(toURL, number)
+	resp, err := http.Get(reqURL)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -57,8 +57,8 @@ func toCol(number int) string {
 }
 
 func fromCol(str string) int {
-	req_url := fmt.Sprintf(FROM_URL, str)
-	resp, err := http.Get(req_url)
+	reqURL := fmt.Sprintf(fromURL, str)
+	resp, err := http.Get(reqURL)
 	if err != nil {
 		fmt.Println(err)
 	}
