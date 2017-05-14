@@ -9,8 +9,8 @@ import (
 )
 
 const (
-	toURL   = "http://127.0.0.1:9000/to_col_notation/%d"
-	fromURL = "http://127.0.0.1:9000/from_col_notation/%s"
+    toURL   = "http://afitnerd.herokuapp.com/v1/excel_kata/to_col_notation/%d"
+    fromURL = "http://afitnerd.herokuapp.com/v1/excel_kata/from_col_notation/%s"
 )
 
 func TestToCol(t *testing.T) {
